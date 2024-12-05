@@ -1,0 +1,209 @@
+/* eslint-disable react/prop-types */
+import { useState, useEffect } from "react";
+import { notifier } from "../../lib/utils";
+import { ImSpinner2 } from "react-icons/im";
+
+const UserForm = ({
+  utility,
+  branch,
+  onSubmitForm,
+  loading,
+  formData,
+  setFormData,
+}) => {
+  const [isFormValid, setFormValid] = useState(false);
+
+  // useEffect(() => {
+  // setFormData({ ...formData, meter_number: "", vendType: "" });
+  // }, [])
+  
+
+  useEffect(() => {
+    // Check if all fields are filled
+    if (
+      formData.name !== "" &&
+      formData.email !== "" &&
+      formData.phone !== "" &&
+      formData.amount !== "" &&
+      formData.vendType !== ""
+    ) {
+      setFormValid(true);
+    }
+  }, [formData]);
+
+  const handleChange = (e) => {
+    if (branch !== "") {
+      setFormData({ ...formData, [e.target.name]: e.target.value });
+    } else {
+      notifier({ message: 'Select your branch first', type: 'error' });
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmitForm({ ...formData, vertical: utility });
+  };
+
+  const plans = [
+    { key: "prepaid", label: "PREPAID" },
+    { key: "postpaid", label: "POSTPAID" },
+  ];
+
+  return (
+    <div className="flex flex-col items-center">
+      {/* <h1 className="text-2xl font-bold text-gray-700 text-center mt-6">{`Recharge ${type} for ${network}`}</h1> */}
+      <form
+        className="w-full bg-white px-6 md:px-12  py-6"
+        onSubmit={handleSubmit}
+      >
+        {/* Name */}
+        <div className="mb-4">
+          <label
+            htmlFor="name"
+            className="block text-gray-700 font-semibold mb-2"
+          >
+            Name
+            <span className="text-red-600"> *</span>
+          </label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            className="w-full px-4 py-2 border border-gray-300 text-gray-600 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
+            placeholder="Enter your name"
+            required
+          />
+        </div>
+
+        {/* Email */}
+        <div className="mb-4">
+          <label
+            htmlFor="email"
+            className="block text-gray-700 font-semibold mb-2"
+          >
+            Email
+            <span className="text-red-600"> *</span>
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            className="w-full px-4 py-2 border border-gray-300 text-gray-600 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
+            placeholder="Enter your email"
+            required
+          />
+        </div>
+
+        {/* Phone Number */}
+        <div className="mb-4">
+          <label
+            htmlFor="phone"
+            className="block text-gray-700 font-semibold mb-2"
+          >
+            Phone Number
+            <span className="text-red-600"> *</span>
+          </label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            className="w-full px-4 py-2 border border-gray-300 text-gray-600 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
+            placeholder="Enter your phone number"
+            required
+          />
+        </div>
+
+        <div className="mb-4">
+          <h1 className="text-lg font-semibold text-gray-700 mb-2">
+            Select your plan <span className="text-red-600"> *</span>
+          </h1>
+          <select
+            onChange={handleChange}
+            name="vendType"
+            placeholder="select a provider"
+            required
+            value={formData.vendType}
+            className="w-full px-4 py-2 border border-gray-300 text-gray-600 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
+            id=""
+          >
+            <option value=""></option>
+            {plans.map((plan) => (
+              <option key={plan.key}>{plan.label}</option>
+            ))}
+          </select>
+        </div>
+
+        {/* Amount */}
+        <div className="mb-4">
+          <label
+            htmlFor="meter_number"
+            className="block text-gray-700 font-semibold mb-2"
+          >
+            Meter Number
+            <span className="text-red-600"> *</span>
+          </label>
+          <input
+            type="number"
+            id="meter_number"
+            name="meter_number"
+            value={formData.meter_number}
+            onChange={handleChange}
+            className="w-full px-4 py-2 border border-gray-300 text-gray-600 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
+            placeholder="Enter meter number"
+            required
+          />
+        </div>
+
+        {/* Amount */}
+        <div className="mb-4">
+          <label
+            htmlFor="amount"
+            className="block text-gray-700 font-semibold mb-2"
+          >
+            Amount
+            <span className="text-red-600"> *</span>
+          </label>
+          <input
+            type="number"
+            id="amount"
+            name="amount"
+            value={formData.amount}
+            onChange={handleChange}
+            className="w-full px-4 py-2 border border-gray-300 text-gray-600 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
+            placeholder="Enter amount to recharge"
+            required
+          />
+        </div>
+
+        {/* Submit Button */}
+        <div>
+          <button
+            disabled={!isFormValid || loading}
+            type="submit"
+            className={` ${
+              isFormValid || !loading
+                ? "bg-blue-500 hover:bg-blue-600"
+                : "bg-blue-200 cursor-not-allowed"
+            } w-full text-white font-semibold mt-8 py-2 px-4 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-400`}
+          >
+            {loading ? (
+              <p className="flex items-center justify-center gap-2">
+                <ImSpinner2 size={20} className="animate-spin" /> Loading
+              </p>
+            ) : (
+              "Submit"
+            )}
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+};
+
+export default UserForm;
