@@ -7,7 +7,7 @@ const Airtime = ({utility,handleFormSubmit,selectedNetwork,setSelectedNetwork,lo
 
 
   return (
-    <div className="w-full pt-10">
+    <div className="w-full">
         <NetworkProviderSelection selectedNetwork={selectedNetwork} setSelectedNetwork={setSelectedNetwork} />
         <UserForm
           utility={utility}

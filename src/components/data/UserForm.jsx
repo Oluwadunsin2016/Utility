@@ -38,7 +38,7 @@ const UserForm = ({ utility, network, onSubmitForm ,loading,formData,setFormData
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmitForm({ ...formData,vertical:utility,vendType:network });
+    onSubmitForm({ ...formData,vertical:utility,disco:network,meter: formData?.phone,narration: "Purchase data", });
   };
 
 

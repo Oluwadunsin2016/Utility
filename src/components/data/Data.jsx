@@ -7,7 +7,7 @@ const Data = ({utility,handleFormSubmit,selectedNetwork,setSelectedNetwork,loadi
 
 
   return (
-    <div className="w-full pt-10">
+    <div className="w-full">
         <NetworkProviderSelection selectedNetwork={selectedNetwork} setSelectedNetwork={setSelectedNetwork} />
         <UserForm
           utility={utility}

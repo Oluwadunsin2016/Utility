@@ -118,7 +118,11 @@ export function numberWithCommas(number) {
 
 export const notifier = ({ message, type }) => {
     const types = ['success', 'error'];
-    if (!types.includes(type)) return;
+
+    if (!types.includes(type)) {
+        console.warn(`Unsupported toast type: ${type}`);
+        return;
+    }
 
     switch (type) {
         case 'success':
@@ -127,8 +131,11 @@ export const notifier = ({ message, type }) => {
         case 'error':
             toast.error(message);
             break;
+        default:
+            toast(message); // Fallback for a generic message
+            break;
     }
-}
+};
 
 export const copy = async (value, message = "copied") => {
     try {
@@ -145,3 +152,20 @@ export const formatCurrency = (value) => {
         currency: "NGN",
     }).format(+value);
 };
+
+
+export const debounce=(func, delay)=> {
+ let timeout;
+
+  const debounced = (...args) => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func(...args), delay);
+  };
+
+  // Add a cancel method to clear the timeout
+  debounced.cancel = () => {
+    clearTimeout(timeout);
+  };
+
+  return debounced;
+}

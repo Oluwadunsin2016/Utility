@@ -26,7 +26,16 @@ export const useCheckMeter = () => {
 export const usePurchase = () => {
    return useMutation({
     mutationFn: async (payload) => {
-      return await axios.post(`${baseUrl}purchase`,payload).then((res) => {
+      return await axios.post(`${baseUrl}initiate_bill`,payload).then((res) => {
+       return res.data;
+      });
+    },
+  });
+};
+export const useVerifyPayment = () => {
+   return useMutation({
+    mutationFn: async (id) => {
+      return await axios.post(`${baseUrl}verify_bill/${id}`).then((res) => {
        return res.data;
       });
     },

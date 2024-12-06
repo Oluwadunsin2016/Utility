@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
-import { useState, useEffect } from "react";
-import { notifier } from "../../lib/utils";
+import { useState, useEffect, useCallback } from "react";
+import { debounce, notifier } from "../../lib/utils";
 import { ImSpinner2 } from "react-icons/im";
+import { useCheckMeter } from "../../lib/api";
 
 const UserForm = ({
   utility,
@@ -12,9 +13,11 @@ const UserForm = ({
   setFormData,
 }) => {
   const [isFormValid, setFormValid] = useState(false);
+  const [validationResult, setValidationResult] = useState(null);
+    const {mutateAsync:checkMeter,}=useCheckMeter()
 
   // useEffect(() => {
-  // setFormData({ ...formData, meter_number: "", vendType: "" });
+  // setFormData({ ...formData, meter: "", vendType: "" });
   // }, [])
   
 
@@ -31,9 +34,14 @@ const UserForm = ({
     }
   }, [formData]);
 
-  const handleChange = (e) => {
+  const handleChange = (e) => { 
+  const {value,name} = e.target;
     if (branch !== "") {
-      setFormData({ ...formData, [e.target.name]: e.target.value });
+    
+      setFormData({ ...formData, [name]: value });
+         if (e.target.name=='meter'&&value.trim()) {
+      debouncedValidateMeterNumber({ ...formData,disco:branch, [name]: value }); // Call the debounced function
+    }
     } else {
       notifier({ message: 'Select your branch first', type: 'error' });
     }
@@ -41,12 +49,43 @@ const UserForm = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmitForm({ ...formData, vertical: utility });
+    onSubmitForm({ ...formData, vertical: utility,narration: "Purchase power", });
   };
 
+ const validateMeterNumber = async (data) => {
+ const {disco,vendType,meter}=data
+ 
+ console.log({disco,vendType,vertical:utility,meter});
+ 
+  await checkMeter({disco,vendType,vertical:utility,meter},{onSuccess:async(data)=>{
+console.log(data);
+setFormData({...formData,orderId:data.orderId,})
+setValidationResult({ message: data.name, type: 'success' });
+},
+onError:(err)=>{
+setValidationResult({ message: err.response.data.message??'An error occurred', type: 'error' });
+}})
+ setFormData(data)
+ console.log({branch,vendType,meter});
+  };
+
+ const debouncedValidateMeterNumber = useCallback(
+    debounce((number) => {
+      validateMeterNumber(number);
+    }, 500), // 500ms delay
+    []
+  );
+
+
+  useEffect(() => {
+  return () => {
+    debouncedValidateMeterNumber.cancel();
+  };
+}, [debouncedValidateMeterNumber]);
+
   const plans = [
-    { key: "prepaid", label: "PREPAID" },
-    { key: "postpaid", label: "POSTPAID" },
+    { key: "PREPAID", label: "PREPAID" },
+    { key: "POSTPAID", label: "POSTPAID" },
   ];
 
   return (
@@ -142,7 +181,7 @@ const UserForm = ({
         {/* Amount */}
         <div className="mb-4">
           <label
-            htmlFor="meter_number"
+            htmlFor="meter"
             className="block text-gray-700 font-semibold mb-2"
           >
             Meter Number
@@ -150,14 +189,15 @@ const UserForm = ({
           </label>
           <input
             type="number"
-            id="meter_number"
-            name="meter_number"
-            value={formData.meter_number}
+            id="meter"
+            name="meter"
+            disabled={!branch||!utility||!formData.vendType}
             onChange={handleChange}
             className="w-full px-4 py-2 border border-gray-300 text-gray-600 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
             placeholder="Enter meter number"
             required
           />
+          {validationResult&&<p className={`${validationResult.type=='error'?'text-red-600':'text-orange-500'} text-sm font-semibold mt-1`}>{validationResult?.message}</p>}
         </div>
 
         {/* Amount */}

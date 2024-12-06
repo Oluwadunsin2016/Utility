@@ -9,10 +9,10 @@ import illustrator from '../assets/images/payment-utility-bills.webp'
 const Utilities = ({handleSelectUtility}) => {
 
  const utilities = [
-    { name: 'Airtime', value: 'vtu', icon: FaSimCard },
-    { name: 'Data', value: 'data', icon: FaWifi },
-    { name: 'Electricity', value: 'electricity', icon: FcElectricity },
-    { name: 'Cable', value: 'tv', icon: MdCable },
+    { name: 'Airtime', value: 'VTU', icon: FaSimCard },
+    { name: 'Data', value: 'DATA', icon: FaWifi },
+    { name: 'Electricity', value: 'ELECTRICITY', icon: FcElectricity },
+    { name: 'Cable', value: 'TV', icon: MdCable },
   ];
 
 

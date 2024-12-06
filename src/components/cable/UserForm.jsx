@@ -1,20 +1,19 @@
 /* eslint-disable react/prop-types */
-import { useState,useEffect } from 'react'
-import { useGetPriceLists } from '../../lib/api';
+import { useState,useEffect, useCallback } from 'react'
+import { useCheckMeter, useGetPriceLists } from '../../lib/api';
 import { ImSpinner2 } from 'react-icons/im';
-import { notifier } from '../../lib/utils';
+import { debounce, notifier } from '../../lib/utils';
 // import { formatCurrency, notifier } from '../../lib/utils';
 
 const UserForm = ({ utility, network, onSubmitForm,loading,formData,setFormData }) => {
     const [isFormValid, setFormValid] = useState(false);
+     const [validationResult, setValidationResult] = useState(null);
+    const {mutateAsync:checkMeter,}=useCheckMeter()
 
 
   
   const {mutateAsync:getPriceLists,data:priceLists}=useGetPriceLists()
 
-  //  useEffect(() => {
-  // setFormData({ ...formData, smart_card_number: '' });
-  // }, [])
 
     useEffect(() => {
         // Check if all fields are filled
@@ -32,17 +31,23 @@ const handleSelectPlan = (e) => {
   }
   };
 
-  const handleChange = (e) => {
-  if(network!==''){
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  }else{
-  notifier({ message: 'Select your network first', type: 'error' });
-  }
+
+   const handleChange = (e) => { 
+  const {value,name} = e.target;
+    if (network !== "") {
+    
+      setFormData({ ...formData, [name]: value });
+         if (e.target.name=='meter'&&value.trim()) {
+      debouncedValidateSmartCardNumber({ ...formData,disco:network, [name]: value }); // Call the debounced function
+    }
+    } else {
+      notifier({ message: 'Select your network first', type: 'error' });
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmitForm({ ...formData,vertical:utility,vendType:network });
+    onSubmitForm({ ...formData,vertical:utility,narration: "Purchase subscription", });
   };
 
 
@@ -56,6 +61,37 @@ getPlans()
 const getPlans = async()=>{
 await getPriceLists({vertical:utility,provider:network})
 }
+
+ const validateSmartCardNumber = async (data) => {
+ const {disco,vendType,meter}=data
+ 
+ console.log({disco,vendType,vertical:utility,meter});
+ 
+  await checkMeter({disco,vendType,vertical:utility,meter},{onSuccess:async(data)=>{
+console.log(data);
+setFormData({...formData,orderId:data.orderId,})
+setValidationResult({ message: data.name, type: 'success' });
+},
+onError:(err)=>{
+setValidationResult({ message: err.response.data.message??'An error occurred', type: 'error' });
+}})
+setFormData(data)
+  };
+
+ const debouncedValidateSmartCardNumber = useCallback(
+    debounce((number) => {
+      validateSmartCardNumber(number);
+    }, 500), // 500ms delay
+    []
+  );
+
+
+  useEffect(() => {
+  return () => {
+    debouncedValidateSmartCardNumber.cancel();
+  };
+}, [debouncedValidateSmartCardNumber]);
+
 
   return (
     <div className="flex flex-col items-center">
@@ -124,20 +160,21 @@ await getPriceLists({vertical:utility,provider:network})
        
         {/* card number */}
         <div className="mb-4">
-          <label htmlFor="smart_card_number" className="block text-gray-700 font-semibold mb-2">
+          <label htmlFor="meter" className="block text-gray-700 font-semibold mb-2">
             Smart Card Number
           <span className='text-red-600'> *</span>
           </label>
           <input
             type="number"
-            id="smart_card_number"
-            name="smart_card_number"
-            value={formData.smart_card_number}
+            id="meter"
+            name="meter"
+            value={formData.meter}
             onChange={handleChange}
             className="w-full px-4 py-2 border border-gray-300 text-gray-600 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
             placeholder="Enter meter number"
             required
           />
+          {validationResult&&<p className={`${validationResult.type=='error'?'text-red-600':'text-orange-500'} text-sm font-semibold mt-1`}>{validationResult?.message}</p>}
         </div>
 
 {/* Select plan */}
