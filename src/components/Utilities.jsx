@@ -3,6 +3,7 @@
 import { FaSimCard, FaWifi } from "react-icons/fa";
 import { MdCable } from "react-icons/md";
 import illustrator from '../assets/images/payment-utility-bills.webp'
+import illustrator_2 from '../assets/images/online-payment-concept-digital.jpg'
 import { TbSunElectricity } from "react-icons/tb";
 // import image from '../assets/images/twitter.png'
 
@@ -33,7 +34,10 @@ const Utilities = ({handleSelectUtility}) => {
       </div>
     </div>
 
-    <img src={illustrator} alt="illustrator" className='w-[20rem] h-[20rem] md:w-[40rem] md:h-[35rem]' />
+    <div className="flex flex-col h-full gap-4 justify-between mt-4">
+    <img src={illustrator} alt="illustrator" className='w-[25rem] h-[25rem] md:w-[40rem] md:h-[35rem]' />
+    <img src={illustrator_2} alt="illustrator" className='w-[25rem] h-[25rem] md:w-[40rem] md:h-[35rem]' />
+    </div>
 
       {/* {utilities && <Tabs
       size="lg"
