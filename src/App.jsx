@@ -8,9 +8,8 @@ import Utilities from "./components/Utilities";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 import PaymentModal from "./components/PaymentModal";
 import Cable from "./components/cable/Cable";
-import { useCheckMeter, usePurchase, useVerifyPayment } from "./lib/api";
+import { usePurchase, useVerifyPayment } from "./lib/api";
 import { Toaster } from "react-hot-toast";
-import { notifier } from "./lib/utils";
 import { Tab, Tabs } from "@nextui-org/react";
 import { FaSimCard, FaWifi } from "react-icons/fa";
 
