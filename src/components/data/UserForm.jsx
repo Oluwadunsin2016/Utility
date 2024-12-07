@@ -7,7 +7,6 @@ import { ImSpinner2 } from 'react-icons/im';
 const UserForm = ({ utility, network, onSubmitForm ,loading,formData,setFormData}) => {
     const [isFormValid, setFormValid] = useState(false);
   const {mutateAsync:getPriceLists,data:priceLists}=useGetPriceLists()
-  console.log(priceLists);
   
 
     useEffect(() => {

@@ -6,8 +6,6 @@ import { Button } from '@nextui-org/react';
 
 const UserForm = ({ utility, network, onSubmitForm,loading,formData,setFormData }) => {
     const [isFormValid, setFormValid] = useState(false);
-
-  console.log(isFormValid,loading);
   
 
     useEffect(() => {

@@ -2,7 +2,6 @@ import { useState } from "react";
 import HeroSection from "./components/HeroSection";
 import Airtime from "./components/airtime/Airtime";
 import Data from "./components/data/Data";
-// import {Tabs, Tab, Card, CardBody, CardHeader} from "@nextui-org/react";
 import Electricity from "./components/elctricity/Electricity";
 import Utilities from "./components/Utilities";
 import { IoArrowBackCircleOutline } from "react-icons/io5";
@@ -12,6 +11,7 @@ import { usePurchase, useVerifyPayment } from "./lib/api";
 import { Toaster } from "react-hot-toast";
 import { Tab, Tabs } from "@nextui-org/react";
 import { FaSimCard, FaWifi } from "react-icons/fa";
+import { notifier } from "./lib/utils";
 
 const App = () => {
   const [step, setStep] = useState(1);
@@ -36,58 +36,26 @@ const App = () => {
     mutateAsync: verifyPayment,
     isPending: verifying,
   } = useVerifyPayment();
-  console.log(result);
 
   const handleFormSubmit = async (formData) => {
 
       await purchaseUtility(formData,{onSuccess:()=>{
         setModalOpen(true);
       }});
-    // if (selectedUtility == "ELECTRICITY") {
-    // console.log({ ...formData,
-    //     disco: selectedBranch,
-    //   });
-    
-    // } else {
-    //   console.log({ ...formData,
-    //     disco: selectedNetwork,
-    //   });
-      // await purchaseUtility({
-      //   ...formData,
-      //   disco: selectedNetwork,
-      // });
-    // }
-
-    // Electricity
-    // setUserInfo({...formData,disco:selectedBranch,meter:formData?.phone,orderId:'',narration:'Purchase power'});
-    // console.log({...formData,disco:selectedBranch,meter:formData?.phone,orderId:'',narration:'Purchase power'})
   };
 
   const complete = async(id) => {
 await verifyPayment(id,{onSuccess:(data)=>{
-console.log(data);
-
-    // setSelectedNetwork("");
-    // setModalOpen(false);
+if (data?.status) {
+  notifier({ message: data?.message, type: 'success' });
+    setModalOpen(false);
+    goBack()
+     setStep(1);
+} else {
+  notifier({ message: data?.message, type: 'error' });
+}
 }})
   };
-
-  // const accountDetails = {
-  //   accountNumber: "1234567890",
-  //   bankName: "GT Bank",
-  // };
-
-  // let tabs = [
-  // {title:'Airtime/Data', key: 'airtime&data'},
-  // {title:'Electricity', key: 'electricity'},
-  // {title:'Cable Subcription', key: 'cable_sub'},
-  // {title:'Water', key: 'water'},
-  // ];
-
-  //   const handleSelect = (chosen)=>{
-  // console.log(chosen);
-  // setSelectedTab(chosen)
-  // }
 
   const handleSelectUtility = (utility) => {
     setSelectedUtility(utility);

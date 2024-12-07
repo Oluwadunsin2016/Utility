@@ -27,7 +27,7 @@ const handleSelectPlan = (e) => {
   if(network!==''){
     setFormData({ ...formData, amount: e.target.value });
   }else{
-  alert('Select your network first');
+  notifier({ message: 'Select your network first', type: 'error' });
   }
   };
 

@@ -35,7 +35,7 @@ export const usePurchase = () => {
 export const useVerifyPayment = () => {
    return useMutation({
     mutationFn: async (id) => {
-      return await axios.post(`${baseUrl}verify_bill/${id}`).then((res) => {
+      return await axios.post(`${baseUrl}verify_bill/`,{id}).then((res) => {
        return res.data;
       });
     },

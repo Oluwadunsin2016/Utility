@@ -53,6 +53,12 @@ const PaymentModal = ({isOpen,onClose,details,complete,loading}) => {
                 {details?.account_dtails?.bank_name || "Example Bank"}
               </span>
             </div>
+            <div className="flex justify-between gap-6 items-center">
+              <span className="text-sm text-gray-500">Account Name </span>
+              <span className="md:text-lg font-bold text-gray-900">
+                {details?.account_dtails?.merchant_name || "Example Bank"}
+              </span>
+            </div>
           </div>
         </div>
 
@@ -115,7 +121,7 @@ const PaymentModal = ({isOpen,onClose,details,complete,loading}) => {
             onClick={()=>complete(details?.id)}
             className="bg-blue-500 w-full mt-4 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition"
           >
-            I haved paid
+            I have paid
           </button>
       </div>
       

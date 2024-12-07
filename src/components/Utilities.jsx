@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 // import { Tab, Tabs } from "@nextui-org/react";
 import { FaSimCard, FaWifi } from "react-icons/fa";
-import { FcElectricity } from "react-icons/fc";
 import { MdCable } from "react-icons/md";
 import illustrator from '../assets/images/payment-utility-bills.webp'
+import { TbSunElectricity } from "react-icons/tb";
 // import image from '../assets/images/twitter.png'
 
 const Utilities = ({handleSelectUtility}) => {
@@ -11,7 +11,7 @@ const Utilities = ({handleSelectUtility}) => {
  const utilities = [
     { name: 'Airtime', value: 'VTU', icon: FaSimCard },
     { name: 'Data', value: 'DATA', icon: FaWifi },
-    { name: 'Electricity', value: 'ELECTRICITY', icon: FcElectricity },
+    { name: 'Electricity', value: 'ELECTRICITY', icon: TbSunElectricity },
     { name: 'Cable', value: 'TV', icon: MdCable },
   ];
 
