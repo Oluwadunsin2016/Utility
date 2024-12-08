@@ -12,7 +12,7 @@
 //   widgetContainer.appendChild(iframe);
 // })();
 
-window.UtilityWidget = function () {
+window.CcUtilityWidget = function () {
   return {
     iframe: null,
     baseurl: "https://utility-virid.vercel.app",
