@@ -12,6 +12,7 @@ import { Toaster } from "react-hot-toast";
 import { Tab, Tabs } from "@nextui-org/react";
 import { FaSimCard, FaWifi } from "react-icons/fa";
 import { notifier } from "./lib/utils";
+import utility from "./assets/images/utility.png";
 
 const App = () => {
   const [step, setStep] = useState(1);
@@ -114,7 +115,7 @@ if (data?.status) {
       <HeroSection
         title="Utilities"
         description="Make money offline and online, buy airtime and sort out your bills with 440"
-        imageUrl="https://cjdataservices.com.ng/fundamental-img/hero.png"
+        imageUrl={utility}
       />
       <div className="relative md:w-1/2 mx-auto min-h-screen bg-white overflow-hidden">
         <div
