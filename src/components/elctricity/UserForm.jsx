@@ -11,8 +11,9 @@ const UserForm = ({
   loading,
   formData,
   setFormData,
+  isFormValid, 
+  setIsFormValid 
 }) => {
-  const [isFormValid, setFormValid] = useState(false);
   const [validationResult, setValidationResult] = useState(null);
     const {mutateAsync:checkMeter,}=useCheckMeter()
 
@@ -30,9 +31,10 @@ const UserForm = ({
       formData.amount !== "" &&
       formData.vendType !== ""
     ) {
-      setFormValid(true);
-    }
-  }, [formData]);
+    setIsFormValid(true);
+            }
+    }, [formData,setIsFormValid]);
+  
 
   const handleChange = (e) => { 
   const {value,name} = e.target;
@@ -224,10 +226,10 @@ setValidationResult({ message: err.response.data.message??'An error occurred', t
         {/* Submit Button */}
         <div>
           <button
-            disabled={!isFormValid || loading}
+           disabled={!isFormValid || loading}
             type="submit"
             className={` ${
-              isFormValid || !loading
+                    isFormValid && !loading
                 ? "bg-blue-500 hover:bg-blue-600"
                 : "bg-blue-200 cursor-not-allowed"
             } w-full text-white font-semibold mt-8 py-2 px-4 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-400`}

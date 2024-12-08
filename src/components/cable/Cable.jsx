@@ -3,7 +3,7 @@
 import UserForm from './UserForm';
 import Plans from './CableNetworkProvider';
 
-const Cable = ({utility,handleFormSubmit,selectedNetwork,setSelectedNetwork,loading,formData,setFormData}) => {
+const Cable = ({utility,handleFormSubmit,selectedNetwork,setSelectedNetwork,loading,formData,setFormData,isFormValid,setIsFormValid}) => {
 
 
   return (
@@ -15,6 +15,8 @@ const Cable = ({utility,handleFormSubmit,selectedNetwork,setSelectedNetwork,load
             formData={formData}
           setFormData={setFormData}
           network={selectedNetwork}
+            isFormValid={isFormValid}
+          setIsFormValid={setIsFormValid}
           onSubmitForm={handleFormSubmit}
         />
     </div>

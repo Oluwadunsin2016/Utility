@@ -1,20 +1,19 @@
 /* eslint-disable react/prop-types */
-import { useState,useEffect, useCallback } from 'react'
+import { useEffect, useCallback } from 'react'
 import { notifier } from '../../lib/utils';
 import { useGetPriceLists } from '../../lib/api';
 import { ImSpinner2 } from 'react-icons/im';
 
-const UserForm = ({ utility, network, onSubmitForm ,loading,formData,setFormData}) => {
-    const [isFormValid, setFormValid] = useState(false);
+const UserForm = ({ utility, network, onSubmitForm,loading,formData,setFormData,isFormValid, setIsFormValid }) => {
   const {mutateAsync:getPriceLists,data:priceLists}=useGetPriceLists()
   
 
     useEffect(() => {
         // Check if all fields are filled
            if( formData.name !=='' && formData.email!=='' &&formData.phone!=='' &&formData.amount!==''){  
-        setFormValid(true);
+        setIsFormValid(true);
             }
-    }, [formData]);
+    }, [formData,setIsFormValid]);
 
 
   const handleChange = (e) => {
@@ -30,8 +29,7 @@ const UserForm = ({ utility, network, onSubmitForm ,loading,formData,setFormData
   if(network!==''){
     setFormData({ ...formData, amount: e.target.value });
   }else{
-  // notifier({ message: 'Select your network first', type: 'error' });
-  alert('Select your network first');
+  notifier({ message: 'Select your network first', type: 'error' });
   }
   };
 
@@ -67,7 +65,6 @@ await getPriceLists({vertical:utility,provider:network})
 
   return (
     <div className="flex flex-col items-center">
-      {/* <h1 className="text-2xl font-bold text-gray-700 text-center mt-6">{`Recharge ${type} for ${network}`}</h1> */}
       <form
         className="w-full bg-white px-6 md:px-12  py-6"
         onSubmit={handleSubmit}

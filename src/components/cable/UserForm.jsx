@@ -5,22 +5,21 @@ import { ImSpinner2 } from 'react-icons/im';
 import { debounce, notifier } from '../../lib/utils';
 // import { formatCurrency, notifier } from '../../lib/utils';
 
-const UserForm = ({ utility, network, onSubmitForm,loading,formData,setFormData }) => {
-    const [isFormValid, setFormValid] = useState(false);
+const UserForm = ({ utility, network, onSubmitForm,loading,formData,setFormData,isFormValid, setIsFormValid }) => {
      const [validationResult, setValidationResult] = useState(null);
     const {mutateAsync:checkMeter,}=useCheckMeter()
+  
+
+    useEffect(() => {
+        // Check if all fields are filled
+           if( formData.name !=='' && formData.email!=='' &&formData.phone!=='' &&formData.amount!==''){  
+        setIsFormValid(true);
+            }
+    }, [formData,setIsFormValid]);
 
 
   
   const {mutateAsync:getPriceLists,data:priceLists}=useGetPriceLists()
-
-
-    useEffect(() => {
-        // Check if all fields are filled
-           if( formData.name !=='' && formData.email!=='' &&formData.phone!=='' &&formData.amount!=='' &&formData.network!==''){  
-        setFormValid(true);
-            }
-    }, [formData]);
 
 
 const handleSelectPlan = (e) => {

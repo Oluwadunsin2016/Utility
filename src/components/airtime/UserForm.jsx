@@ -1,19 +1,18 @@
 /* eslint-disable react/prop-types */
-import { useState,useEffect } from 'react'
+import {useEffect } from 'react'
 import { formatCurrency, notifier } from '../../lib/utils';
 import { ImSpinner2 } from 'react-icons/im';
 import { Button } from '@nextui-org/react';
 
-const UserForm = ({ utility, network, onSubmitForm,loading,formData,setFormData }) => {
-    const [isFormValid, setFormValid] = useState(false);
+const UserForm = ({ utility, network, onSubmitForm,loading,formData,setFormData,isFormValid, setIsFormValid }) => {
   
 
     useEffect(() => {
         // Check if all fields are filled
            if( formData.name !=='' && formData.email!=='' &&formData.phone!=='' &&formData.amount!==''){  
-        setFormValid(true);
+        setIsFormValid(true);
             }
-    }, [formData]);
+    }, [formData,setIsFormValid]);
 
 
   const handleChange = (e) => {

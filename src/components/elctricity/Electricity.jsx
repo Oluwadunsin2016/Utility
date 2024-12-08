@@ -3,7 +3,7 @@
 import UserForm from './UserForm';
 import PowerBranches from './PowerBranches';
 
-const Electricity = ({utility,handleFormSubmit,selectedBranch,setSelectedBranch,loading,formData,setFormData}) => {
+const Electricity = ({utility,handleFormSubmit,selectedBranch,setSelectedBranch,loading,formData,setFormData,isFormValid,setIsFormValid}) => {
 
 
   return (
@@ -15,6 +15,8 @@ const Electricity = ({utility,handleFormSubmit,selectedBranch,setSelectedBranch,
              formData={formData}
           setFormData={setFormData}
           branch={selectedBranch}
+          isFormValid={isFormValid}
+          setIsFormValid={setIsFormValid}
           onSubmitForm={handleFormSubmit}
         />
     </div>

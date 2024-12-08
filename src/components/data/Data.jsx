@@ -3,7 +3,7 @@
 import UserForm from './UserForm';
 import NetworkProviderSelection from './NetworkProviderSelection';
 
-const Data = ({utility,handleFormSubmit,selectedNetwork,setSelectedNetwork,loading,formData,setFormData}) => {
+const Data = ({utility,handleFormSubmit,selectedNetwork,setSelectedNetwork,loading,formData,setFormData,isFormValid,setIsFormValid}) => {
 
 
   return (
@@ -14,6 +14,8 @@ const Data = ({utility,handleFormSubmit,selectedNetwork,setSelectedNetwork,loadi
           loading={loading}
             formData={formData}
           setFormData={setFormData}
+          isFormValid={isFormValid}
+          setIsFormValid={setIsFormValid}
           network={selectedNetwork}
           onSubmitForm={handleFormSubmit}
         />

@@ -6,7 +6,7 @@ import { formatCurrency } from '../lib/utils'
 import { ImSpinner3 } from 'react-icons/im'
 import { useState } from 'react'
 
-const PaymentModal = ({isOpen,onClose,details,complete,loading}) => {
+const PaymentModal = ({isOpen,onClose,details,complete,loading,countdown}) => {
  const [isCopied, setIsCopied] = useState(false);
 
  const copyToClipBoard = (account_number) => {
@@ -119,9 +119,10 @@ const PaymentModal = ({isOpen,onClose,details,complete,loading}) => {
         {/* Close Button */}
           <button
             onClick={()=>complete(details?.id)}
+            disabled={loading}
             className="bg-blue-500 w-full mt-4 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition"
           >
-            I have paid
+            {loading?countdown:'I have paid'}
           </button>
       </div>
       

@@ -19,6 +19,9 @@ const App = () => {
   const [selectedUtility, setSelectedUtility] = useState("VTU");
   const [selectedNetwork, setSelectedNetwork] = useState("");
   const [selectedBranch, setSelectedBranch] = useState("");
+  const [isVerifying, setIsVerifying] = useState(false);
+    const [countdown, setCountdown] = useState(30);
+    const [isFormValid, setIsFormValid] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -35,7 +38,6 @@ const App = () => {
   } = usePurchase();
   const {
     mutateAsync: verifyPayment,
-    isPending: verifying,
   } = useVerifyPayment();
 
   const handleFormSubmit = async (formData) => {
@@ -45,18 +47,68 @@ const App = () => {
       }});
   };
 
-  const complete = async(id) => {
-await verifyPayment(id,{onSuccess:(data)=>{
-if (data?.status) {
-  notifier({ message: data?.message, type: 'success' });
-    setModalOpen(false);
-    goBack()
-     setStep(1);
-} else {
-  notifier({ message: data?.message, type: 'error' });
-}
-}})
+//   const complete = async(id) => {
+// await verifyPayment(id,{onSuccess:(data)=>{
+// if (data?.status) {
+//   notifier({ message: data?.message, type: 'success' });
+//     setModalOpen(false);
+//     goBack()
+//      setStep(1);
+// } else {
+//   notifier({ message: data?.message, type: 'error' });
+// }
+// }})
+//   };
+
+const complete = async (id) => {
+  const interval = 2000; // Call API every 2 seconds
+  const maxCalls = 30; // Stop after 30 calls
+  let callCount = 0; // To track the number of API calls
+
+  setCountdown(30); // Initialize countdown state
+  setIsVerifying(true); // Indicate verification in progress
+
+  const pollPaymentStatus = async () => {
+    callCount++;
+
+    setCountdown((prevCountdown) => prevCountdown - 1); // Decrement countdown
+
+    await verifyPayment(id, {
+      onSuccess: (data) => {
+        if (data?.status) {
+          // If status is true, stop polling
+          clearInterval(intervalId);
+          setIsVerifying(false);
+          notifier({ message: data?.message, type: "success" });
+          setModalOpen(false);
+          goBack();
+          setStep(1);
+        } else if (callCount >= maxCalls) {
+          // If max calls reached and status is still false
+          clearInterval(intervalId);
+          setIsVerifying(false);
+          notifier({ message: data?.message || "Payment verification failed", type: "error" });
+        }
+      },
+    });
   };
+
+  // Call the polling function at regular intervals
+  const intervalId = setInterval(async () => {
+    if (callCount < maxCalls) {
+      await pollPaymentStatus();
+    } else {
+      clearInterval(intervalId); // Stop the interval when maxCalls is reached
+    }
+  }, interval);
+
+  // Cleanup interval if the component unmounts
+  return () => {
+    clearInterval(intervalId);
+  };
+};
+
+
 
   const handleSelectUtility = (utility) => {
     setSelectedUtility(utility);
@@ -86,6 +138,7 @@ if (data?.status) {
       vendType: "PREPAID",
     meter: "",
     });
+    setIsFormValid(false)
     setStep(1);
   };
 
@@ -176,6 +229,8 @@ if (data?.status) {
                     utility={selectedUtility}
                     setFormData={setFormData}
                     formData={formData}
+                    isFormValid={isFormValid}
+                    setIsFormValid={setIsFormValid}
                   />
                 )}
                 {selectedUtility == "DATA" && (
@@ -187,6 +242,8 @@ if (data?.status) {
                     utility={selectedUtility}
                     setFormData={setFormData}
                     formData={formData}
+                    isFormValid={isFormValid}
+                    setIsFormValid={setIsFormValid}
                   />
                 )}
               </div>
@@ -200,6 +257,8 @@ if (data?.status) {
               utility={selectedUtility}
               setFormData={setFormData}
               formData={formData}
+              isFormValid={isFormValid}
+              setIsFormValid={setIsFormValid}
             />
           )}
           {selectedUtility == "TV" && (
@@ -211,6 +270,8 @@ if (data?.status) {
               utility={selectedUtility}
               setFormData={setFormData}
               formData={formData}
+              isFormValid={isFormValid}
+              setIsFormValid={setIsFormValid}
             />
           )}
         </div>
@@ -218,7 +279,8 @@ if (data?.status) {
       <Toaster position="top-right" reverseOrder={false} />
       <PaymentModal
         isOpen={modalOpen}
-        loading={verifying}
+        loading={isVerifying}
+        countdown={countdown}
         details={result?.saveTrans}
         complete={complete}
         onClose={() => setModalOpen(false)}
