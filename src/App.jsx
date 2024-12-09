@@ -165,17 +165,26 @@ const complete = async (id) => {
 
   return (
     <div className="bg-gray-100">
+    <div className='hidden md:block'>
       <HeroSection
         title="Utilities"
         description="Make money offline and online, buy airtime and sort out your bills with 440"
         imageUrl={utility}
       />
+    </div>
       <div className="relative md:w-1/2 mx-auto min-h-screen bg-white overflow-hidden">
         <div
           className={`absolute w-full h-full bg-white transition-transform duration-500 ${
             step === 1 ? "translate-x-0" : "-translate-x-full"
           }`}
         >
+    <div className='block md:hidden'>
+      <HeroSection
+        title="Utilities"
+        description="Make money offline and online, buy airtime and sort out your bills with 440"
+        imageUrl={utility}
+      />
+    </div>
           <Utilities handleSelectUtility={handleSelectUtility} />
         </div>
         <div
