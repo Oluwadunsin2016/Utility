@@ -15,7 +15,7 @@
 window.UtilityWidget = function () {
   return {
     iframe: null,
-    baseurl: "https://utility-virid.vercel.app",
+    baseurl: "https://utility-virid.vercel.app/",
     key: '',
     defaultOverflow: '',
     listener: null,
