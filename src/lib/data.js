@@ -17,8 +17,8 @@ import goTv from "../assets/images/gotv.jpg";
 import starTime from "../assets/images/startimes.jpg";
 
 
-import mtn from "../assets/images/mtn.jpg";
-import airtel from "../assets/images/airtel.png";
+import mtn from "../assets/images/mtn_cropped.png";
+import airtel from "../assets/images/airtelEmpty.png";
 import glo from "../assets/images/glo.png";
 import nineMobile from "../assets/images/9mobile.png";
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import HeroSection from "./components/HeroSection";
+// import HeroSection from "./components/HeroSection";
 import Airtime from "./components/airtime/Airtime";
 import Data from "./components/data/Data";
 import Electricity from "./components/elctricity/Electricity";
@@ -12,7 +12,7 @@ import { Toaster } from "react-hot-toast";
 import { Tab, Tabs } from "@nextui-org/react";
 import { FaSimCard, FaWifi } from "react-icons/fa";
 import { notifier } from "./lib/utils";
-import utility from "./assets/images/utility.png";
+// import utility from "./assets/images/utility.png";
 
 const App = () => {
   const [step, setStep] = useState(1);
@@ -150,7 +150,7 @@ const complete = async (id) => {
 }
   }
   const handleSelectBranch=(branch)=>{
-  selectedBranch(branch)
+  setSelectedBranch(branch)
   const isNotEmpty = Object.values(formData).some(value => value !== "" && value !== null && value !== undefined);
   if (isNotEmpty) {
    setIsFormValid(true)
