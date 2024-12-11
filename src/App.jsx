@@ -172,7 +172,7 @@ const complete = async (id) => {
         imageUrl={utility}
       />
     </div>
-      <div className="relative md:w-1/2 mx-auto min-h-screen bg-white overflow-hidden">
+      <div className="relative md:w-3/4 mx-auto min-h-screen bg-white overflow-hidden">
         <div
           className={`absolute w-full h-full bg-white transition-transform duration-500 ${
             step === 1 ? "translate-x-0" : "-translate-x-full"
