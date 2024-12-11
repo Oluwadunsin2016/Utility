@@ -25,9 +25,6 @@ const UserForm = ({
   useEffect(() => {
     // Check if all fields are filled
     if (
-      formData.name !== "" &&
-      formData.email !== "" &&
-      formData.phone !== "" &&
       formData.amount !== "" &&
       formData.vendType !== ""
     ) {
@@ -98,7 +95,7 @@ setValidationResult({ message: err.response.data.message??'An error occurred', t
         onSubmit={handleSubmit}
       >
         {/* Name */}
-        <div className="mb-4">
+        {/* <div className="mb-4">
           <label
             htmlFor="name"
             className="block text-gray-700 font-semibold mb-2"
@@ -116,10 +113,10 @@ setValidationResult({ message: err.response.data.message??'An error occurred', t
             placeholder="Enter your name"
             required
           />
-        </div>
+        </div> */}
 
         {/* Email */}
-        <div className="mb-4">
+        {/* <div className="mb-4">
           <label
             htmlFor="email"
             className="block text-gray-700 font-semibold mb-2"
@@ -137,10 +134,10 @@ setValidationResult({ message: err.response.data.message??'An error occurred', t
             placeholder="Enter your email"
             required
           />
-        </div>
+        </div> */}
 
         {/* Phone Number */}
-        <div className="mb-4">
+        {/* <div className="mb-4">
           <label
             htmlFor="phone"
             className="block text-gray-700 font-semibold mb-2"
@@ -158,7 +155,7 @@ setValidationResult({ message: err.response.data.message??'An error occurred', t
             placeholder="Enter your phone number"
             required
           />
-        </div>
+        </div> */}
 
         <div className="mb-4">
           <h1 className="text-lg font-semibold text-gray-700 mb-2">

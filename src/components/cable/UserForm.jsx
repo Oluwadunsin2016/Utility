@@ -12,7 +12,7 @@ const UserForm = ({ utility, network, onSubmitForm,loading,formData,setFormData,
 
     useEffect(() => {
         // Check if all fields are filled
-           if( formData.name !=='' && formData.email!=='' &&formData.phone!=='' &&formData.amount!==''){  
+           if(formData.amount!==''){  
         setIsFormValid(true);
             }
     }, [formData,setIsFormValid]);
@@ -100,7 +100,7 @@ setFormData(data)
         onSubmit={handleSubmit}
       >
         {/* Name */}
-        <div className="mb-4">
+        {/* <div className="mb-4">
           <label htmlFor="name" className="block text-gray-700 font-semibold mb-2">
             Name
             <span className='text-red-600'> *</span>
@@ -115,10 +115,10 @@ setFormData(data)
             placeholder="Enter your name"
             required
           />
-        </div>
+        </div> */}
 
         {/* Email */}
-        <div className="mb-4">
+        {/* <div className="mb-4">
           <label htmlFor="email" className="block text-gray-700 font-semibold mb-2">
             Email
           <span className='text-red-600'> *</span>
@@ -133,10 +133,10 @@ setFormData(data)
             placeholder="Enter your email"
             required
           />
-        </div>
+        </div> */}
 
         {/* Phone Number */}
-        <div className="mb-4">
+        {/* <div className="mb-4">
           <label
             htmlFor="phone"
             className="block text-gray-700 font-semibold mb-2"
@@ -154,7 +154,7 @@ setFormData(data)
             placeholder="Enter your phone number"
             required
           />
-        </div>
+        </div> */}
 
        
         {/* card number */}

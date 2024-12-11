@@ -23,10 +23,10 @@ const App = () => {
     const [countdown, setCountdown] = useState(30);
     const [isFormValid, setIsFormValid] = useState(false);
   const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    amount: "",
+    name: "Adeoye John",
+    // email: "",
+    // phone: "",
+    // amount: "",
     vendType: "PREPAID",
     meter: "",
   });
@@ -117,9 +117,9 @@ const complete = async (id) => {
   const handleNavigateAirtimeAndDate = (utility) => {
   setSelectedNetwork("");
   setFormData({
-      name: "",
-      email: "",
-      phone: "",
+      // name: "",
+      // email: "",
+      // phone: "",
       amount: "",
       vendType: "PREPAID",
     meter: "",
@@ -131,9 +131,9 @@ const complete = async (id) => {
     setSelectedNetwork("");
     setSelectedBranch("");
     setFormData({
-      name: "",
-      email: "",
-      phone: "",
+      // name: "",
+      // email: "",
+      // phone: "",
       amount: "",
       vendType: "PREPAID",
     meter: "",
@@ -146,49 +146,33 @@ const complete = async (id) => {
     { name: "Airtime", value: "VTU", icon: FaSimCard },
     { name: "Data", value: "DATA", icon: FaWifi },
   ];
-  //  {tabs && <Tabs
-  //             onSelectionChange={handleSelect}
-  //             className="rounded my-4"
-  //             aria-label="Tabs"
-  //             size="lg"
-  //             classNames={{cursor: "w-full bg-white rounded px-4 py-1 bg-blue-400 text-white outline-none border-none shadow", base:'bg-gray-200',tabContent:'text-gray-700 font-medium',}}
-  //           >
-  //           {tabs?.map((tab)=>(
-  //             <Tab key={tab.key} title={tab.title} className='text-medium' />
-  //           ))}
-  //           </Tabs>}
-
-  // https://munhayevtudata.com.ng/myassets/img/bg/home.jpg
-  // https://dtunes.ng/blog/wp-content/uploads/2023/08/Artboard-3-copy-4.jpg
-  // https://cjdataservices.com.ng/fundamental-img/feature.png
-  // https://cjdataservices.com.ng/fundamental-img/hero.png
 
   return (
     <div className="bg-gray-100">
-    <div className='hidden md:block'>
+    {/* <div className='hidden md:block'>
       <HeroSection
         title="Utilities"
         description="Make money offline and online, buy airtime and sort out your bills with 440"
         imageUrl={utility}
       />
-    </div>
+    </div> */}
       <div className="relative md:w-3/4 mx-auto min-h-screen bg-white overflow-hidden">
         <div
           className={`absolute w-full h-full bg-white transition-transform duration-500 ${
             step === 1 ? "translate-x-0" : "-translate-x-full"
           }`}
         >
-    <div className='block md:hidden'>
+    {/* <div className='block md:hidden'>
       <HeroSection
         title="Utilities"
         description="Make money offline and online, buy airtime and sort out your bills with 440"
         imageUrl={utility}
       />
-    </div>
+    </div> */}
           <Utilities handleSelectUtility={handleSelectUtility} />
         </div>
         <div
-          className={`w-full bg-white transition-transform duration-500 ${
+          className={`w-full bg-white transition-transform duration-500 pb-10 ${
             step === 2 ? "translate-x-0" : "translate-x-full"
           }`}
         >
