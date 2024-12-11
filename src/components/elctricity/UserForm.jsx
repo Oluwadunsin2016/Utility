@@ -25,6 +25,7 @@ const UserForm = ({
   useEffect(() => {
     // Check if all fields are filled
     if (
+    branch !== ""&&
       formData.amount !== "" &&
       formData.vendType !== ""
     ) {

@@ -12,7 +12,7 @@ const UserForm = ({ utility, network, onSubmitForm,loading,formData,setFormData,
 
     useEffect(() => {
         // Check if all fields are filled
-           if(formData.amount!==''){  
+           if(network!==''&&formData.amount!==''){  
         setIsFormValid(true);
             }
     }, [formData,setIsFormValid]);

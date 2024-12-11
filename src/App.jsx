@@ -23,10 +23,10 @@ const App = () => {
     const [countdown, setCountdown] = useState(30);
     const [isFormValid, setIsFormValid] = useState(false);
   const [formData, setFormData] = useState({
-    name: "Adeoye John",
+    // name: "",
     // email: "",
     // phone: "",
-    // amount: "",
+    amount: "",
     vendType: "PREPAID",
     meter: "",
   });
@@ -142,6 +142,21 @@ const complete = async (id) => {
     setStep(1);
   };
 
+  const handleSelectNetwork=(network)=>{
+  setSelectedNetwork(network)
+  const isNotEmpty = Object.values(formData).some(value => value !== "" && value !== null && value !== undefined);
+  if (isNotEmpty) {
+   setIsFormValid(true)
+}
+  }
+  const handleSelectBranch=(branch)=>{
+  selectedBranch(branch)
+  const isNotEmpty = Object.values(formData).some(value => value !== "" && value !== null && value !== undefined);
+  if (isNotEmpty) {
+   setIsFormValid(true)
+}
+  }
+
   const utilities = [
     { name: "Airtime", value: "VTU", icon: FaSimCard },
     { name: "Data", value: "DATA", icon: FaWifi },
@@ -218,7 +233,7 @@ const complete = async (id) => {
                     handleFormSubmit={handleFormSubmit}
                     loading={loading}
                     selectedNetwork={selectedNetwork}
-                    setSelectedNetwork={setSelectedNetwork}
+                    setSelectedNetwork={handleSelectNetwork}
                     utility={selectedUtility}
                     setFormData={setFormData}
                     formData={formData}
@@ -231,7 +246,7 @@ const complete = async (id) => {
                     handleFormSubmit={handleFormSubmit}
                     loading={loading}
                     selectedNetwork={selectedNetwork}
-                    setSelectedNetwork={setSelectedNetwork}
+                    setSelectedNetwork={handleSelectNetwork}
                     utility={selectedUtility}
                     setFormData={setFormData}
                     formData={formData}
@@ -246,7 +261,7 @@ const complete = async (id) => {
               handleFormSubmit={handleFormSubmit}
               loading={loading}
               selectedBranch={selectedBranch}
-              setSelectedBranch={setSelectedBranch}
+              setSelectedBranch={handleSelectBranch}
               utility={selectedUtility}
               setFormData={setFormData}
               formData={formData}
@@ -259,7 +274,7 @@ const complete = async (id) => {
               handleFormSubmit={handleFormSubmit}
               loading={loading}
               selectedNetwork={selectedNetwork}
-              setSelectedNetwork={setSelectedNetwork}
+              setSelectedNetwork={handleSelectNetwork}
               utility={selectedUtility}
               setFormData={setFormData}
               formData={formData}

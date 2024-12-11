@@ -8,12 +8,9 @@ const UserForm = ({ utility, network, onSubmitForm,loading,formData,setFormData,
   const {mutateAsync:getPriceLists,data:priceLists}=useGetPriceLists()
   
 
-    useEffect(() => {
+      useEffect(() => {
         // Check if all fields are filled
-        //    if( formData.name !=='' && formData.email!=='' &&formData.phone!=='' &&formData.amount!==''){  
-        // setIsFormValid(true);
-        //     }
-           if(formData.phone!=='' && formData.amount!==''){  
+           if(network!==''&&formData.phone!=='' && formData.amount!==''){  
         setIsFormValid(true);
             }
     }, [formData,setIsFormValid]);
