@@ -10,7 +10,7 @@ const UserForm = ({ utility, network, onSubmitForm,loading,formData,setFormData,
 
       useEffect(() => {
         // Check if all fields are filled
-           if(network!==''&&formData.phone!=='' && formData.amount!==''){  
+           if(network!==''&&formData.meter!=='' && formData.amount!==''){  
         setIsFormValid(true);
             }
     }, [formData,setIsFormValid]);
@@ -35,7 +35,7 @@ const UserForm = ({ utility, network, onSubmitForm,loading,formData,setFormData,
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmitForm({ ...formData,vertical:utility,disco:network,meter: formData?.phone,narration: "Purchase data", });
+    onSubmitForm({ ...formData,vertical:utility,disco:network,phone: formData?.meter,narration: "Purchase data", });
   };
 
 
@@ -108,7 +108,7 @@ await getPriceLists({vertical:utility,provider:network})
         {/* Phone Number */}
         <div className="mb-4">
           <label
-            htmlFor="phone"
+            htmlFor="meter"
             className="block text-gray-700 font-semibold mb-2"
           >
             Phone Number
@@ -116,9 +116,9 @@ await getPriceLists({vertical:utility,provider:network})
           </label>
           <input
             type="tel"
-            id="phone"
-            name="phone"
-            value={formData.phone}
+            id="meter"
+            name="meter"
+            value={formData.meter}
             onChange={handleChange}
             className="w-full px-4 py-2 border border-gray-300 text-gray-600 rounded-md focus:outline-none focus:ring-1 focus:ring-blue-500"
             placeholder="Enter your phone number"

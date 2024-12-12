@@ -144,14 +144,14 @@ const complete = async (id) => {
 
   const handleSelectNetwork=(network)=>{
   setSelectedNetwork(network)
-  const isNotEmpty = Object.values(formData).some(value => value !== "" && value !== null && value !== undefined);
+  const isNotEmpty = Object.values(formData).every(value => value !== "" && value !== null && value !== undefined);
   if (isNotEmpty) {
    setIsFormValid(true)
 }
   }
   const handleSelectBranch=(branch)=>{
   setSelectedBranch(branch)
-  const isNotEmpty = Object.values(formData).some(value => value !== "" && value !== null && value !== undefined);
+  const isNotEmpty = Object.values(formData).every(value => value !== "" && value !== null && value !== undefined);
   if (isNotEmpty) {
    setIsFormValid(true)
 }
