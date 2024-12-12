@@ -25,7 +25,7 @@ const UserForm = ({ utility, network, onSubmitForm,loading,formData,setFormData,
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmitForm({ ...formData,vertical:utility,disco:network,phone: formData?.meter,narration: "Purchase airtime", });
+    onSubmitForm({ ...formData,vertical:utility,disco:network,narration: "Purchase airtime", });
   };
 
   const suggestedAmount=[100,200,500,1000,1500,2000]
