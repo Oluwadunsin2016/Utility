@@ -19,7 +19,7 @@ const NetworkProviderSelection = ({ setSelectedNetwork,selectedNetwork }) => {
             <img
               src={network.logo}
               alt={`${network.name} logo`}
-              className="w-8 h-8 md:w-12 md:h-12"
+              className="w-12 h-12 md:w-12 md:h-12"
             />
           </div>
         ))}

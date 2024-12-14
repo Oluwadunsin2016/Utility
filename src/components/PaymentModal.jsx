@@ -5,9 +5,11 @@ import { IoCheckmark, IoCopyOutline } from 'react-icons/io5'
 import { formatCurrency } from '../lib/utils'
 import { ImSpinner3 } from 'react-icons/im'
 import { useState } from 'react'
+import ConfirmationModal from './ConfirmationModal'
 
 const PaymentModal = ({isOpen,onClose,details,complete,loading,countdown}) => {
  const [isCopied, setIsCopied] = useState(false);
+  const [cancel, setCancel] = useState(false);
 
  const copyToClipBoard = (account_number) => {
     navigator.clipboard
@@ -21,13 +23,18 @@ const PaymentModal = ({isOpen,onClose,details,complete,loading,countdown}) => {
       .catch((err) => console.log('Fail to copy text:', err));
   };
 
+  const handleCancelPayment=()=>{
+  setCancel(false)
+  onClose()
+  }
+
   return (
        <div className={`${isOpen ? 'block' : 'hidden'} fixed inset-0 z-50 flex items-center justify-center`}>
-      <div onClick={onClose} className="absolute inset-0 bg-black opacity-50"></div>
-      <div className="min-h-[70%] w-full mx-6 md:w-2/6 bg-white relative rounded">
+      <div className="absolute inset-0 bg-black opacity-50"></div>
+      <div className="min-h-[50%] w-full mx-6 md:w-2/6 bg-white relative rounded">
       {loading && <div className='absolute left-0 right-0 top-0 bottom-0 rounded text-gray-300 flex justify-center items-center bg-slate-50/85'><ImSpinner3 size={100} className='animate-spin' /></div>} 
       <div className='p-10'>
-      <button onClick={onClose} className="absolute top-4 right-4 text-red-500 z-30">
+      <button onClick={()=>setCancel(true)} className="absolute top-4 right-4 text-red-500 z-30">
         <IoIosCloseCircle size="40px" />
       </button>
           <h2 className="text-xl md:text-2xl italic font-semibold text-gray-800">{details?.account_dtails?.response_message}</h2>
@@ -131,7 +138,7 @@ const PaymentModal = ({isOpen,onClose,details,complete,loading,countdown}) => {
             {loading?countdown:'I have paid'}
           </button>
       </div>
-      
+      <ConfirmationModal cancel={cancel} setCancel={setCancel} handleCancelPayment={handleCancelPayment} />
       </div>
     </div>
   )

@@ -23,7 +23,7 @@ const App = () => {
     const [countdown, setCountdown] = useState(30);
     const [isFormValid, setIsFormValid] = useState(false);
   const [formData, setFormData] = useState({
-    // name: "",
+    name: "John Adeoye",
     // email: "",
     // phone: "",
     amount: "",
